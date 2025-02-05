@@ -1,8 +1,9 @@
 import "./Typeahead.scss";
 import { FaSearch } from "react-icons/fa";
 import { useDebounce } from "../../hooks/useDebounce";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getKeywordSearchValues } from "../../api/searchKeyword";
+import { useResultsStore } from "../../store/useResultsStore";
 
 interface TypeaheadProps {
   onDebounceChange: (value: string) => Promise<void>;
@@ -10,10 +11,14 @@ interface TypeaheadProps {
 
 export const Typeahead: React.FC<TypeaheadProps> = ({ onDebounceChange }) => {
   const [inputValue, setInputValue] = useState("");
+  const addResults = useResultsStore((state) => state.addResults);
+
   const debouncedValue = useDebounce(inputValue);
   const { data } = getKeywordSearchValues(debouncedValue);
 
-  console.log(data);
+  useEffect(() => {
+    addResults(data?.results ?? []);
+  }, [data]);
 
   return (
     <div className="typeahead">
