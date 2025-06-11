@@ -1,0 +1,37 @@
+.frontPage {
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    background: #323232;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+  }
+
+  &__grid {
+    padding: 2rem;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2rem;
+    list-style-type: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .frontPage__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .frontPage__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .frontPage__grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

@@ -34,10 +34,7 @@ export interface TVResultType extends ResultType {
 
 export type MovieAndTVResults = TVResultType | MovieResultType;
 
-export type SearchKeywordResultsTypes =
-  | TVResultType
-  | MovieResultType
-  | PersonResultType;
+export type SearchKeywordResultsTypes = MovieAndTVResults | PersonResultType;
 
 export interface PersonResultType {
   id: string;

@@ -2,23 +2,27 @@ import "./Typeahead.scss";
 import { FaSearch } from "react-icons/fa";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useEffect, useState } from "react";
-import { getKeywordSearchValues } from "../../api/searchKeyword";
-import { useResultsStore } from "../../store/useResultsStore";
 
 interface TypeaheadProps {
-  onDebounceChange: (value: string) => Promise<void>;
+  onDebounceValueChange: (debouncedValue: string) => Promise<void>;
+  defaultValue?: string;
+  placeholder?: string;
+  debounceTime?: number;
 }
 
-export const Typeahead: React.FC<TypeaheadProps> = ({ onDebounceChange }) => {
-  const [inputValue, setInputValue] = useState("");
-  const addResults = useResultsStore((state) => state.addResults);
+export const Typeahead: React.FC<TypeaheadProps> = ({
+  onDebounceValueChange,
+  defaultValue = "",
+  placeholder = "",
+  debounceTime = 500,
+}) => {
+  const [input, setInput] = useState(defaultValue);
 
-  const debouncedValue = useDebounce(inputValue);
-  const { data } = getKeywordSearchValues(debouncedValue);
+  const debouncedValue = useDebounce(input, debounceTime);
 
   useEffect(() => {
-    addResults(data?.results ?? []);
-  }, [data]);
+    onDebounceValueChange(debouncedValue);
+  }, [debouncedValue]);
 
   return (
     <div className="typeahead">
@@ -27,10 +31,10 @@ export const Typeahead: React.FC<TypeaheadProps> = ({ onDebounceChange }) => {
       </div>
       <div className="typeahead__container typeahead__container-grow">
         <input
-          placeholder="Search Movie/TV"
+          placeholder={placeholder}
           className="typeahead__input"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
         />
       </div>
     </div>

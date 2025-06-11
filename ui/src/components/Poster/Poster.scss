@@ -1,0 +1,23 @@
+.poster {
+  height: 100%;
+
+  &__noImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    box-sizing: border-box;
+    padding: 1rem;
+    background: #323232;
+    height: 100%;
+    width: 100%;
+    color: white;
+    font-size: 2rem;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+  }
+}

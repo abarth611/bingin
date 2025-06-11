@@ -1,12 +1,10 @@
 import "./App.css";
-import { CardList } from "./components/CardList/CardList";
-import { Navigation } from "./components/Navigation/Navigation";
+import { FrontPage } from "./pages/FrontPage/FrontPage";
 
 function App() {
   return (
     <div>
-      <Navigation />
-      <CardList />
+      <FrontPage />
     </div>
   );
 }
