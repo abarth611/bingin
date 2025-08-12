@@ -6,6 +6,7 @@ import { Typeahead } from "../../components/Typeahead/Typeahead";
 import { useGetResultsOnKeyword } from "../../hooks/useGetResultsOnKeyword";
 import { Card } from "../../components/Card/Card";
 import { Poster } from "../../components/Poster/Poster";
+import { MediaType } from "../../api/types/KeywordTypes";
 
 export const FrontPage = () => {
   const [keyword, setKeyword] = useState("");
@@ -34,9 +35,17 @@ export const FrontPage = () => {
         <div className="frontPage__grid">
           {data?.pages?.map((result) => {
             return result.results.map((movie) => {
+              const posterPath =
+                movie.media_type === MediaType.PERSON
+                  ? movie.profile_path
+                  : movie.poster_path;
+
+              const title =
+                movie.media_type === MediaType.MOVIE ? movie.title : movie.name;
+
               return (
                 <Card>
-                  <Poster result={movie} />
+                  <Poster posterPath={posterPath} title={title} />
                 </Card>
               );
             });

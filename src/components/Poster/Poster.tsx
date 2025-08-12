@@ -1,22 +1,12 @@
 import "./Poster.scss";
-import {
-  MediaType,
-  SearchKeywordResultsTypes,
-} from "../../api/types/KeywordTypes";
 
 interface PosterProps {
-  result: SearchKeywordResultsTypes;
+  posterPath: string | null;
+  title: string;
 }
 
-export const Poster: React.FC<PosterProps> = ({ result }) => {
+export const Poster: React.FC<PosterProps> = ({ posterPath, title }) => {
   const imageUrl = import.meta.env.VITE_IMAGE_URL;
-  const title =
-    result.media_type === MediaType.MOVIE ? result.title : result.name;
-
-  const posterPath =
-    result.media_type === MediaType.PERSON
-      ? result.profile_path
-      : result.poster_path;
 
   return (
     <div className="poster">
